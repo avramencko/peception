@@ -1,0 +1,96 @@
+.split-pane:horizontal > .split-pane-divider {
+    -fx-background-color: transparent;
+}
+.split-pane:vertical > .split-pane-divider {
+    -fx-background-color: transparent;
+}
+.split-pane{
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+}
+.title{
+    -fx-background-color:#344955;
+}
+.menu-pane{
+    -fx-background-color:#4A6572;
+}
+.pane{
+    -fx-padding: 10px;
+}
+.vbox{
+    -fx-spacing: 10px;
+}
+.button{
+    -fx-background-color: #4A6572;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-weight: bold;
+    -fx-font-size: 10pt;
+    -fx-border-radius: 8;
+    -fx-font-family: "Segoe UI Semibold";
+}
+.label {
+    -fx-font-size: 10pt;
+    -fx-font-family: "Segoe UI Semibold";
+}
+.room-wrapper{
+-fx-background-color: white;
+    -fx-padding: 8;
+    -fx-spacing: 16;
+}
+.room-wrapper .label{
+    -fx-font-size: 8pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: #232F34;
+}
+.room-wrapper .button{
+    -fx-background-color: #4A6572;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-weight: bold;
+    -fx-font-size: 10pt;
+    -fx-border-radius: 8;
+    -fx-font-family: "Segoe UI Semibold";
+
+}
+.menu-pane .button{
+    -fx-background-color: #f2f2f2;
+    -fx-text-fill: #000000;
+    -fx-font-weight: bold;
+    -fx-font-size: 10pt;
+    -fx-border-radius: 8;
+    -fx-font-family: "Segoe UI Semibold";
+}
+
+.menu-pane .label {
+    -fx-font-size: 10pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: white;
+}
+
+
+.choice-box{
+    -fx-background-color: #f2f2f2;
+    -fx-text-fill: #000000;
+}
+.choice-box .label{
+    -fx-text-fill: #000000;
+}
+   .choice-box .context-menu { -fx-background-color: #f2f2f2; }
+   .choice-box .menu-item > .label { -fx-text-fill: #000000; }
+   .choice-box .menu-item:focused { -fx-background-color: #f2f2f2; }
+   .choice-box .menu-item:focused > .label { -fx-text-fill: #F9AA33; }
+.radio-button{
+    -fx-font-size: 8pt;
+    -fx-padding: 8;
+}
+
+.date-picker .button {
+    -fx-background-insets: 1 0 1 1;
+    -fx-background-radius: 2 0 0 2;
+    -fx-background-color: #f4f4f4;
+    -fx-text-fill: #232F34;
+    -fx-font-weight: bold;
+    -fx-font-size: 10pt;
+    -fx-border-radius: 8;
+    -fx-font-family: "Segoe UI Semibold";
+}
+
