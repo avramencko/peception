@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import sample.data_base.DataBaseHandler;
-import sample.files.ReaderWriter;
+import sample.files.Writer;
 import sample.models.Order;
 
 import java.time.Duration;
@@ -43,11 +43,10 @@ public class ResultOfOrderController {
     }
     @FXML
     private void save() {
-        ReaderWriter readerWriter = new ReaderWriter();
-        readerWriter.setOrder(order);
-        readerWriter.save("D:\\Учеба\\JAVA\\reception\\src\\main\\java\\ordersFiles",String.valueOf(order.getId()));
+        Writer writer = new Writer();
+        writer.setOrder(order);
+        writer.save("D:\\Учеба\\JAVA\\reception\\src\\main\\java\\ordersFiles",String.valueOf(order.getId()));
         //TODO КАК ПРОПИСАТЬ ПУТЬ?
     }
-
 
 }

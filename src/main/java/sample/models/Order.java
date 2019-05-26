@@ -19,46 +19,7 @@ public class Order {
         this.eviction = builder.eviction;
         this.notice = builder.notice;
     }
-//    public Order(int id, Room room, Guest guest, Employee employee, LocalDate arrival, LocalDate eviction, String notice) {
-//        this.id = id;
-//        this.room = room;
-//        this.guest = guest;
-//        this.employee = employee;
-//        this.arrival = arrival;
-//        this.eviction = eviction;
-//        this.notice = notice;
-//    }
 
-//    public Order(int id, Room room, Guest guest, Employee employee, LocalDate arrival, LocalDate eviction) {
-//        this.id = id;
-//        this.room = room;
-//        this.guest = guest;
-//        this.employee = employee;
-//        this.arrival = arrival;
-//        this.eviction = eviction;
-//    }
-
-//    public Order(Room room, Guest guest, Employee employee, LocalDate arrival, LocalDate eviction, String notice) {
-//        this.room = room;
-//        this.guest = guest;
-//        this.employee = employee;
-//        this.arrival = arrival;
-//        this.eviction = eviction;
-//        this.notice = notice;
-//    }
-
-//    public Order(Room room, Guest guest, Employee employee, LocalDate arrival, LocalDate eviction) {
-//        this.room = room;
-//        this.guest = guest;
-//        this.employee = employee;
-//        this.arrival = arrival;
-//        this.eviction = eviction;
-//    }
-
-//    public Order(LocalDate arrival, LocalDate eviction) {
-//        this.arrival = arrival;
-//        this.eviction = eviction;
-//    }
 
     public int getId() {
         return id;

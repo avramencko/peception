@@ -6,13 +6,8 @@ import javafx.scene.shape.Rectangle;
 public class OrderRectangle {
     private final int DAY_OF_WEEK = 7;
     private final int DAY_OF_ROW = 14;
-//    private final double LENGTH_DAY_DOUBLE = 35;
-//    private final double WIDTH_DAY_DOUBLE = 60d;
-//    private final double HEIGHT_DAY_DOUBLE = 30d;
     private final double D = 2d;
     private final Color orange = Color.rgb(255, 165, 0, 0.7);
-//private final Color orange = Color.rgb(74, 101, 114, 0.7);
-//    private final Color blue = Color.rgb(100, 100, 255, 0.7);
 
 
     private Rectangle getRect(int begin, int days, double width, double height, Color color, double x, double y) {

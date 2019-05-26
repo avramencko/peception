@@ -8,7 +8,11 @@ import java.io.UnsupportedEncodingException;
 import java.time.Duration;
 import java.time.format.DateTimeFormatter;
 
-public class ReaderWriter {
+/**
+ * class for writing the HTML file information about the order
+ */
+public class Writer {
+    /**Оrder field*/
     private Order order;
     private final String HEAD = "<head>\n" +
             "<meta charset=\"utf-8\">\n" +
@@ -32,11 +36,19 @@ public class ReaderWriter {
     private final String TD = "<td>\n";
     private final String TD_END = "</td>\n";
 
-    public ReaderWriter() {}
+    /**Сonstructor*/
+    public Writer() {}
 
+    /**Set the value of the order property*/
     public void setOrder(Order order) {
         this.order = order;
     }
+
+    /**
+     * Save the file with the order details
+     * @param path - path where want to write the file
+     * @param filename - file name
+     */
     public void save(String path, String filename){
         PrintWriter writer = null;
         try {
