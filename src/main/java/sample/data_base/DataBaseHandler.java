@@ -169,7 +169,10 @@ public class DataBaseHandler extends Configs {
             ResultSet resultSet = statement.executeQuery();
             ArrayList<Order> orders = new ArrayList<>();
             while(resultSet.next()) {
-                Room room = new Room(resultSet.getInt(4), resultSet.getInt(5), resultSet.getInt(6),resultSet.getInt(7),resultSet.getInt(8),resultSet.getInt(9),resultSet.getInt(10),resultSet.getInt(11));
+                Room room = new Room.Builder().withId(resultSet.getInt(4)).withNumber(resultSet.getInt(5))
+                        .withNumberBeds(resultSet.getInt(6)).withTv(resultSet.getInt(7)).withFridge(resultSet.getInt(8))
+                        .withAirConditioning(resultSet.getInt(9)).withBalcony(resultSet.getInt(10))
+                        .withPrice(resultSet.getInt(11)).build();
                 LocalDate arrival = (resultSet.getDate(2)!=null)?(resultSet.getDate(2).toLocalDate()):(null);
                 LocalDate eviction = (resultSet.getDate(3)!=null)?(resultSet.getDate(3).toLocalDate()):(null);
                 Order order = new Order.Builder(arrival,eviction).withId(resultSet.getInt(1)).withRoom(room).build();
@@ -188,7 +191,10 @@ public class DataBaseHandler extends Configs {
             ResultSet resultSet = statement.executeQuery();
             ArrayList<Room> rooms = new ArrayList<>();
             while(resultSet.next()) {
-                Room room = new Room(resultSet.getInt(1), resultSet.getInt(2), resultSet.getInt(3),resultSet.getInt(4),resultSet.getInt(5),resultSet.getInt(6),resultSet.getInt(7),resultSet.getInt(8));
+                Room room = new Room.Builder().withId(resultSet.getInt(1)).withNumber(resultSet.getInt(2))
+                        .withNumberBeds(resultSet.getInt(3)).withTv(resultSet.getInt(4)).withFridge(resultSet.getInt(5))
+                        .withAirConditioning(resultSet.getInt(6)).withBalcony(resultSet.getInt(7))
+                        .withPrice(resultSet.getInt(8)).build();
                 rooms.add(room);
             }
             return rooms;
@@ -234,7 +240,7 @@ public class DataBaseHandler extends Configs {
                     " LEFT JOIN "+Const.GUESTS_TABLE+" on "+Const.ORDERS_ID_GUEST+" = "+Const.GUESTS_ID);
             ArrayList<Order> orders = new ArrayList<>();
             while(resultSet.next()) {
-                Room room = new Room(resultSet.getInt(1));
+                Room room = new Room.Builder().withNumber(resultSet.getInt(1)).build();
                 Guest guest = new Guest(resultSet.getString(3),resultSet.getString(2));
                 Employee employee = new Employee(resultSet.getString(7),resultSet.getString(8));
                 LocalDate arrival = (resultSet.getDate(4)!=null)?(resultSet.getDate(4).toLocalDate()):(null);
@@ -270,7 +276,10 @@ public class DataBaseHandler extends Configs {
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
             if(resultSet.next()) {
-                Room room = new Room(resultSet.getInt(1),resultSet.getInt(2), resultSet.getInt(3), resultSet.getInt(4), resultSet.getInt(5), resultSet.getInt(6), resultSet.getInt(7));
+                Room room = new Room.Builder().withNumber(resultSet.getInt(1)).withNumberBeds(resultSet.getInt(2))
+                        .withTv(resultSet.getInt(3)).withFridge(resultSet.getInt(4))
+                        .withAirConditioning(resultSet.getInt(5)).withBalcony(resultSet.getInt(6))
+                        .withPrice(resultSet.getInt(7)).build();
                 Guest guest = new Guest(resultSet.getInt(8),resultSet.getString(10),resultSet.getString(9),resultSet.getString(11));
                 Employee employee = new Employee(resultSet.getString(16),resultSet.getString(17));
                 LocalDate arrival = (resultSet.getDate(12)!=null)?(resultSet.getDate(12).toLocalDate()):(null);
