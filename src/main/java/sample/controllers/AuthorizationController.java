@@ -16,18 +16,16 @@ import sample.models.User;
 
 import java.io.IOException;
 
-public class AuthorizacionController {
-    @FXML
-    private AnchorPane content;
+public class AuthorizationController {
+
     @FXML
     private TextField login;
     @FXML
     private PasswordField password;
     @FXML
     private Label err;
-
     @FXML
-    public void button1(ActionEvent event) throws IOException {
+    public void enter(ActionEvent event) throws IOException {
 
         String log = login.getText();
         String pass = password.getText();
