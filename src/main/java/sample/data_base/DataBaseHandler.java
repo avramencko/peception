@@ -7,10 +7,18 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * class for working with database
+ */
 public class DataBaseHandler extends Configs {
     private String jdbcDriver = "com.mysql.cj.jdbc.Driver";
     private static DataBaseHandler instance;
     private DataBaseHandler(){}
+
+    /**
+     * return a single instance of a class. creates an object if it is not created
+     * @return a single instance of a class
+     */
     public static DataBaseHandler getInstance() {
         if (instance == null) {
             instance = new DataBaseHandler();
@@ -40,6 +48,7 @@ public class DataBaseHandler extends Configs {
         }
         return dbConnection;
     }
+
     private void delete(){
         Connection con = null;
         try {
@@ -52,6 +61,7 @@ public class DataBaseHandler extends Configs {
             e.printStackTrace();
         }
     }
+
     private Connection createDatabase() {
         Connection con = null;
         try {
@@ -110,6 +120,12 @@ public class DataBaseHandler extends Configs {
         return getDbConnection();
     }
 
+    /**
+     * authenticate users
+     * @param log user login
+     * @param pass user password
+     * @return the employee who logged in with the app
+     */
     public Employee authenticate(String log, String pass) {
         try (Connection conn = getDbConnection()) {
             PreparedStatement statement = conn.prepareStatement("SELECT * FROM "+Const.EMPLOYEES_TABLE+" WHERE " +Const.EMPLOYEES_USERNAME+" = ? ");//AND "+Const.EMPLOYEES_PASSWORD+" = ?
@@ -126,7 +142,8 @@ public class DataBaseHandler extends Configs {
         return new Employee();
 
     }
-    public void savePass(String nam, String surn,String log, String pass) {
+
+    private void savePass(String nam, String surn, String log, String pass) {
         try (Connection conn = getDbConnection()) {
             PreparedStatement statement = conn.prepareStatement("INSERT INTO "+Const.EMPLOYEES_TABLE+" ("+Const.EMPLOYEES_SURNAME+", "+Const.EMPLOYEES_NAME+", "+Const.EMPLOYEES_USERNAME+", "+Const.EMPLOYEES_PASSWORD+") VALUES ( ? , ? , ? , ? )");
             statement.setString(1, surn);
@@ -139,7 +156,8 @@ public class DataBaseHandler extends Configs {
             e.printStackTrace();
         }
     }
-    public void saveRooms() {
+
+    private void saveRooms() {
         try (Connection conn = getDbConnection()) {
             Statement statement = conn.createStatement();
             statement.execute("INSERT INTO "+dbName+".`rooms` (`number`, `numberBeds`, `tv`, `fridge`, `airConditioning`, `balcony`, `price`) VALUES (1, 1, 0, 0, 0, 0, 100)");
@@ -151,6 +169,13 @@ public class DataBaseHandler extends Configs {
             e.printStackTrace();
         }
     }
+
+    /**
+     * returns all orders in the specified range
+     * @param begin period start date
+     * @param end period end date
+     * @return list of orders
+     */
     public ArrayList<Order>  getOrders(LocalDate begin, LocalDate end){
         try (Connection conn = getDbConnection()) {
             PreparedStatement statement = conn.prepareStatement("SELECT "+Const.ORDERS_ID+", "+Const.ORDERS_ARRIVAL+", "+Const.ORDERS_EVICTION+", "+Const.ROOMS_TABLE+".*\n" +
@@ -185,6 +210,11 @@ public class DataBaseHandler extends Configs {
         }
         return new ArrayList<>();
     }
+
+    /**
+     * returns all rooms in the database
+     * @return list of rooms
+     */
     public ArrayList<Room>  getRooms(){
         try (Connection conn = getDbConnection()) {
             PreparedStatement statement = conn.prepareStatement("SELECT "+Const.ROOMS_TABLE+".* FROM "+Const.ROOMS_TABLE);
@@ -203,6 +233,14 @@ public class DataBaseHandler extends Configs {
         }
         return new ArrayList<>();
     }
+
+    /**
+     * returns the orders in the specified range for a specific room
+     * @param roomId room's ID
+     * @param begin period start date
+     * @param end period end date
+     * @return list of orders
+     */
     public ArrayList<Order>  getOrdersForRoom(int roomId, LocalDate begin, LocalDate end){
         try (Connection conn = getDbConnection()) {
             PreparedStatement statement = conn.prepareStatement("SELECT "+Const.ORDERS_ARRIVAL+", "+Const.ORDERS_EVICTION+" FROM "+Const.ORDERS_TABLE+"\n" +
@@ -230,7 +268,12 @@ public class DataBaseHandler extends Configs {
         }
         return new ArrayList<>();
     }
-    public ArrayList<Order>  getOrdersList(){
+
+    /**
+     * returns all orders
+     * @return list of orders
+     */
+    public ArrayList<Order>  getAllOrders(){
         try (Connection conn = getDbConnection()) {
             Statement statement = conn.createStatement();
 
@@ -255,6 +298,11 @@ public class DataBaseHandler extends Configs {
         }
         return new ArrayList<>();
     }
+
+    /**
+     * removes the order with the specified ID
+     * @param id order's ID
+     */
     public void deleteOrder(int id){
         try (Connection conn = getDbConnection()) {
             PreparedStatement statement = conn.prepareStatement("DELETE FROM "+Const.ORDERS_TABLE+" WHERE "+Const.ORDERS_ID+" = ?");
@@ -264,6 +312,12 @@ public class DataBaseHandler extends Configs {
             e.printStackTrace();
         }
     }
+
+    /**
+     * returns the order with the specified ID
+     * @param id order's ID
+     * @return order
+     */
     public Order getOrderById(int id){
         try (Connection conn = getDbConnection()) {
             PreparedStatement statement = conn.prepareStatement("SELECT "+Const.ROOMS_NUMBER+", "+Const.ROOMS_NUMBER_BEDS+", "+Const.ROOMS_TV+", "+Const.ROOMS_FRIDGE+", "+Const.ROOMS_AIRCONDITIONING+", "+Const.ROOMS_BALCONY+", "+Const.ROOMS_PRICE+",\n" +
@@ -293,6 +347,12 @@ public class DataBaseHandler extends Configs {
         return null;
         //TODO return order&??
     }
+
+    /**
+     * save order
+     * @param order order to save
+     * @return ID of the saved order
+     */
     public int saveOrder(Order order){
         if(getOrdersForRoom(order.getRoom().getId(),order.getArrival().plusDays(1),order.getEviction().minusDays(1)).size()>0)
             return 0;
@@ -337,6 +397,13 @@ public class DataBaseHandler extends Configs {
         }
         return 0;
     }
+
+    /**
+     * saves changes to the order
+     * @param order the order whose data needs to be saved after the change
+     * @param guest guest whose data changes need to be saved
+     * @return {true}  if changes have been saved. {false} if the changes have not been saved. may occur if orders are crossed
+     */
     public boolean saveChangeOrder(Order order, Guest guest){
         if(getOrdersForRoom(order.getRoom().getId(),order.getArrival().plusDays(1),order.getEviction().minusDays(1)).size()>1)
             return false;

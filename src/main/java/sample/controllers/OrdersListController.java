@@ -41,7 +41,7 @@ public class OrdersListController {
      */
     private void redraw() {
         gridPane.getChildren().clear();
-        ArrayList<Order> orderArrayList = DataBaseHandler.getInstance().getOrdersList();
+        ArrayList<Order> orderArrayList = DataBaseHandler.getInstance().getAllOrders();
         for (int i = 0; i < orderArrayList.size(); i++) {
             Order order = orderArrayList.get(i);
             Label room = new Label(String.valueOf(order.getRoom().getNumber()));
