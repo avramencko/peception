@@ -66,10 +66,10 @@ public class RoomDataController {
     private Room room;
 
     public void initialize() {
-        DayOfWeek[] dayOfWeeks = new DayOfWeek[]{DayOfWeek.MONDAY,DayOfWeek.TUESDAY,DayOfWeek.WEDNESDAY,DayOfWeek.THURSDAY,DayOfWeek.FRIDAY,DayOfWeek.SATURDAY,DayOfWeek.SATURDAY};
-        int beg =0;
-        for(int i = 0;i<7;i++){
-            if(today.getDayOfWeek()==dayOfWeeks[i]){
+        DayOfWeek[] dayOfWeeks = new DayOfWeek[]{DayOfWeek.MONDAY, DayOfWeek.TUESDAY, DayOfWeek.WEDNESDAY, DayOfWeek.THURSDAY, DayOfWeek.FRIDAY, DayOfWeek.SATURDAY, DayOfWeek.SATURDAY};
+        int beg = 0;
+        for (int i = 0; i < 7; i++) {
+            if (today.getDayOfWeek() == dayOfWeeks[i]) {
                 beg = i;
             }
         }
@@ -160,32 +160,36 @@ public class RoomDataController {
 
     @FXML
     private void saveOrder() {
-        Guest guest = new Guest(guestSurname.getText(), guestName.getText(), guestPhone.getText());
-        Order order = new Order.Builder(ArrivalDatePicker.getValue(),EvictionDatePicker.getValue()).withRoom(room).withGuest(guest).withEmployee(User.getInstance()).withNotice(notice.getText()).build();
+        boolean correctData = false;
+        if (ArrivalDatePicker.getValue() != null && EvictionDatePicker.getValue() != null) {
+            Guest guest = new Guest(guestSurname.getText(), guestName.getText(), guestPhone.getText());
+            Order order = new Order.Builder(ArrivalDatePicker.getValue(), EvictionDatePicker.getValue()).withRoom(room).withGuest(guest).withEmployee(User.getInstance()).withNotice(notice.getText()).build();
 //                (room, guest, User.getInstance(), ArrivalDatePicker.getValue(), EvictionDatePicker.getValue(),notice.getText());
-        int id = DataBaseHandler.getInstance().saveOrder(order);
-        if (id>0) {
-            order.setId(id);
+            int id = DataBaseHandler.getInstance().saveOrder(order);
+            if (id > 0) {
+                order.setId(id);
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/resultOfOrder.fxml"));
-            Stage stage = new Stage();
-            try {
-                stage.setScene(new Scene(loader.load()));
-            } catch (IOException e1) {
-                e1.printStackTrace();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/resultOfOrder.fxml"));
+                Stage stage = new Stage();
+                try {
+                    stage.setScene(new Scene(loader.load()));
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+                ResultOfOrderController controller = loader.getController();
+                controller.initData(order);
+                stage.setOnCloseRequest(event -> {
+                    stage.close();
+                    fillCalendar();
+                });
+                ArrivalDatePicker.setValue(null);
+                EvictionDatePicker.setValue(null);
+                stage.show();
+
+                correctData = true;
             }
-            ResultOfOrderController controller = loader.getController();
-            controller.initData(order);
-            stage.setOnCloseRequest(event -> {
-                        stage.close();
-                        fillCalendar();
-                    });
-            ArrivalDatePicker.setValue(null);
-            EvictionDatePicker.setValue(null);
-            stage.show();
-
-
-        } else {
+        }
+        if (correctData) {
             Stage window = new Stage();
             window.initModality(Modality.APPLICATION_MODAL);
             VBox layout = new VBox(10);
@@ -195,9 +199,10 @@ public class RoomDataController {
             Button button = new Button("ОК");
             button.setOnAction(event -> window.close());
             layout.getChildren().addAll(label, button);
-            Scene scene = new Scene(layout,200,150);
+            Scene scene = new Scene(layout, 200, 150);
             window.setScene(scene);
             window.showAndWait();
         }
+
     }
 }

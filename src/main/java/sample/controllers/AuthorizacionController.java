@@ -31,18 +31,18 @@ public class AuthorizacionController {
 
         String log = login.getText();
         String pass = password.getText();
-        Employee employee = DataBaseHandler.getInstance().authenticate(log,pass);
-        if(employee!=null&&employee.getId()>0)
-        {
-            User.getInstance().setInstance(employee);
-            Parent root = FXMLLoader.load(getClass().getResource("../view/roomsList.fxml"));
-            Main.parentWindow.setTitle("Главная");
-            Main.parentWindow.setScene(new Scene(root));
+        Employee employee;
+        if(log!=null&&pass!=null) {
+            employee = DataBaseHandler.getInstance().authenticate(log, pass);
+            if (employee != null && employee.getId() > 0) {
+                User.getInstance().setInstance(employee);
+                Parent root = FXMLLoader.load(getClass().getResource("../view/roomsList.fxml"));
+                Main.parentWindow.setTitle("Главная");
+                Main.parentWindow.setScene(new Scene(root));
+            } else {
+                err.setText("Неверный логин или пароль");
+            }
         }
-        else {
-            err.setText("Неверный логин или пароль");
-        }
-//            DataBaseHandler.getInstance().savePass("","","","admin");
     }
     //TODO DELETE
     public void initialize() {

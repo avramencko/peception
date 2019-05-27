@@ -98,25 +98,30 @@ public class EditOrderController {
     }
     @FXML
     private void save(){
-        Guest guest = order.getGuest();
-        guest.setSurname(guestSurname.getText());
-        guest.setName(guestName.getText());
-        guest.setPhone(guestPhone.getText());
-        order.setNotice(notice.getText());
-        if(DataBaseHandler.getInstance().saveChangeOrder(order,guest)){
-            Stage window = new Stage();
-            window.initModality(Modality.APPLICATION_MODAL);
-            VBox layout = new VBox(10);
-            layout.getStylesheets().add("sample/view/Styles.css");
-            layout.setAlignment(Pos.CENTER);
-            Label label = new Label("Изменения сохранены.");
-            Button button = new Button("ОК");
-            button.setOnAction(event->window.close());
-            layout.getChildren().addAll(label,button);
-            Scene scene = new Scene(layout,200,150);
-            window.setScene(scene);
-            window.showAndWait();
-        }else {
+        boolean correctData = false;
+        if(order.getArrival()!=null&&order.getEviction()!=null) {
+            Guest guest = order.getGuest();
+            guest.setSurname(guestSurname.getText());
+            guest.setName(guestName.getText());
+            guest.setPhone(guestPhone.getText());
+            order.setNotice(notice.getText());
+            if (DataBaseHandler.getInstance().saveChangeOrder(order, guest)) {
+                Stage window = new Stage();
+                window.initModality(Modality.APPLICATION_MODAL);
+                VBox layout = new VBox(10);
+                layout.getStylesheets().add("sample/view/Styles.css");
+                layout.setAlignment(Pos.CENTER);
+                Label label = new Label("Изменения сохранены.");
+                Button button = new Button("ОК");
+                button.setOnAction(event -> window.close());
+                layout.getChildren().addAll(label, button);
+                Scene scene = new Scene(layout, 200, 150);
+                window.setScene(scene);
+                window.showAndWait();
+                correctData = true;
+            }
+        }
+        if(correctData){
             Stage window = new Stage();
             window.initModality(Modality.APPLICATION_MODAL);
             VBox layout = new VBox(10);
