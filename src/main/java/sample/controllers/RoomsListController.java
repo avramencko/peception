@@ -30,34 +30,35 @@ public class RoomsListController {
     private final LocalDate today = LocalDate.now();
     private LocalDate beginPeriod = today;
     private LocalDate endPeriod = today.plusDays(14);
-//    private LocalDate beginPeriod = LocalDate.of(2019,5,1);
-//    private LocalDate endPeriod = LocalDate.of(2019,5,14);
 
     @FXML
-    public VBox listRooms;
+    private VBox listRooms;
     @FXML
-    public Label userData;
+    private Label userData;
     @FXML
-    public RadioButton tvRadioButton;
+    private RadioButton tvRadioButton;
     @FXML
-    public RadioButton fridgeRadioButton;
+    private RadioButton fridgeRadioButton;
     @FXML
-    public RadioButton airConditioningRadioButton;
+    private RadioButton airConditioningRadioButton;
     @FXML
-    public RadioButton balconyRadioButton;
+    private RadioButton balconyRadioButton;
     @FXML
-    public ChoiceBox bedsChoiceBox;
+    private ChoiceBox bedsChoiceBox;
     @FXML
-    public Slider limitPrice;
+    private Slider limitPrice;
     @FXML
-    public Label priceLabel;
+    private Label priceLabel;
     @FXML
-    public Button todayButton;
+    private Button todayButton;
     @FXML
-    public DatePicker datePicker;
+    private DatePicker datePicker;
 
     private ArrayList<Room> rooms;
 
+    /**
+     * shows information about the user, sets the listeners for ChoiceBox, configure Slider, create DatePicker
+     */
     public void initialize() {
         userData.setText(User.getInstance().getSurname() + " " + User.getInstance().getName());
 
@@ -73,21 +74,21 @@ public class RoomsListController {
         rooms = DataBaseHandler.getInstance().getRooms();
         int min = 0;
         int max = 0;
-if(rooms.size()>0) {
-    min = rooms.get(0).getPrice();
-    max = min;
-    for (Room room : rooms) {
-        if (room.getPrice() < min)
-            min = room.getPrice();
-        if (room.getPrice() > max)
-            max = room.getPrice();
-    }
-}
+        if (rooms.size() > 0) {
+            min = rooms.get(0).getPrice();
+            max = min;
+            for (Room room : rooms) {
+                if (room.getPrice() < min)
+                    min = room.getPrice();
+                if (room.getPrice() > max)
+                    max = room.getPrice();
+            }
+        }
 
         limitPrice.setMin(min);
         limitPrice.setMax(max);
         limitPrice.setValue(max);
-        priceLabel.setText("Цена до: " + (int)limitPrice.getValue());
+        priceLabel.setText("Цена до: " + (int) limitPrice.getValue());
         limitPrice.valueProperty().addListener((observable, oldValue, newValue) -> {
             priceLabel.setText("Цена до: " + newValue.intValue());
             redraw();
@@ -95,7 +96,7 @@ if(rooms.size()>0) {
 
 
         String pattern = "dd.MM.yyyy";
-        todayButton.setText("Сегодня: "+today.format(DateTimeFormatter.ofPattern(pattern)));
+        todayButton.setText("Сегодня: " + today.format(DateTimeFormatter.ofPattern(pattern)));
 //        datePicker.setDayCellFactory(calendarFactory.getDayCellFactory(today));
         datePicker.valueProperty().addListener((ObservableValue<? extends LocalDate> ov, LocalDate oldValue, LocalDate newValue) -> {
             beginPeriod = newValue;
@@ -189,44 +190,44 @@ if(rooms.size()>0) {
     }
 
     @FXML
-    public void exit() throws IOException {
+    private void exit() throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("../view/authorization.fxml"));
         Main.parentWindow.setTitle("authorization");
         Main.parentWindow.setScene(new Scene(root));
     }
 
     @FXML
-    public void right(){
+    private void right(){
         beginPeriod = beginPeriod.plusDays(14);
         endPeriod = endPeriod.plusDays(14);
         redraw();
     }
     @FXML
-    public void left(){
+    private void left(){
         beginPeriod = beginPeriod.minusDays(14);
         endPeriod = endPeriod.minusDays(14);
         redraw();
     }
     @FXML
-    public void minusDay(){
+    private void minusDay(){
         beginPeriod = beginPeriod.minusDays(1);
         endPeriod = endPeriod.minusDays(1);
         redraw();
     }
     @FXML
-    public void plusDay(){
+    private void plusDay(){
         beginPeriod = beginPeriod.plusDays(1);
         endPeriod = endPeriod.plusDays(1);
         redraw();
     }
     @FXML
-    public void goToToday(){
+    private void goToToday(){
         beginPeriod = today;
         endPeriod = beginPeriod.plusDays(14);
         redraw();
     }
     @FXML
-    public void showOrdersList() throws IOException {
+    private void showOrdersList() throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("../view/ordersList.fxml"));
         Main.parentWindow.setTitle("Заказы");
         Main.parentWindow.setScene(new Scene(root));

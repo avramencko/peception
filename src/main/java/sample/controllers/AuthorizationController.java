@@ -16,6 +16,9 @@ import sample.models.User;
 
 import java.io.IOException;
 
+/**
+ * Controller for the login page
+ */
 public class AuthorizationController {
 
     @FXML
@@ -24,19 +27,30 @@ public class AuthorizationController {
     private PasswordField password;
     @FXML
     private Label err;
+
+
+    /**
+     * method checks the data entered. if the data is correct, go to the main page.
+     * if the data is incorrect, displays an error message
+     */
     @FXML
-    public void enter(ActionEvent event) throws IOException {
+    public void enter() {
 
         String log = login.getText();
         String pass = password.getText();
         Employee employee;
-        if(log!=null&&pass!=null) {
+        if (log != null && pass != null) {
             employee = DataBaseHandler.getInstance().authenticate(log, pass);
             if (employee != null && employee.getId() > 0) {
                 User.getInstance().setInstance(employee);
-                Parent root = FXMLLoader.load(getClass().getResource("../view/roomsList.fxml"));
-                Main.parentWindow.setTitle("Главная");
-                Main.parentWindow.setScene(new Scene(root));
+                Parent root = null;
+                try {
+                    root = FXMLLoader.load(getClass().getResource("../view/roomsList.fxml"));
+                    Main.parentWindow.setTitle("Главная");
+                    Main.parentWindow.setScene(new Scene(root));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             } else {
                 err.setText("Неверный логин или пароль");
             }

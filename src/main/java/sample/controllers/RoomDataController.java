@@ -24,13 +24,15 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * window controller with room data and fields for ordering
+ */
 public class RoomDataController {
 
     private final LocalDate today = LocalDate.now();
     private LocalDate beginPeriod;
     private LocalDate endPeriod;
     private final Color blue = Color.rgb(100, 100, 255, 0.7);
-
 
     @FXML
     private Label NumberLabel;
@@ -65,6 +67,9 @@ public class RoomDataController {
 
     private Room room;
 
+    /**
+     * when initialized, creates a calendar and DatePickers
+     */
     public void initialize() {
         DayOfWeek[] dayOfWeeks = new DayOfWeek[]{DayOfWeek.MONDAY, DayOfWeek.TUESDAY, DayOfWeek.WEDNESDAY, DayOfWeek.THURSDAY, DayOfWeek.FRIDAY, DayOfWeek.SATURDAY, DayOfWeek.SATURDAY};
         int beg = 0;
@@ -89,7 +94,11 @@ public class RoomDataController {
         });
     }
 
-    void initData(Room room) {
+    /**
+     * shows information about the room
+     * @param room - data about this room need to show
+     */
+    public void initData(Room room) {
         this.room = room;
         if (this.room != null) {
             NumberLabel.setText(room.getNumber() + "");
@@ -158,6 +167,9 @@ public class RoomDataController {
         CalendarAnchorPane.getChildren().addAll(rects);
     }
 
+    /**
+     * save order data. if the data is entered incorrectly, an error message is displayed
+     */
     @FXML
     private void saveOrder() {
         boolean correctData = false;

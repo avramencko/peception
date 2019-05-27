@@ -17,26 +17,28 @@ import sample.models.Room;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-
+/**
+ * controller for window with fields to edit the order
+ */
 public class EditOrderController {
     private Order order;
     private ArrayList<Room> rooms;
     private final LocalDate today = LocalDate.now();
 
     @FXML
-    public ComboBox numberCB;
+    private ComboBox numberCB;
     @FXML
-    public Label numberBedsLabel;
+    private Label numberBedsLabel;
     @FXML
-    public Label tvLabel;
+    private Label tvLabel;
     @FXML
-    public Label fridgeLabel;
+    private Label fridgeLabel;
     @FXML
-    public Label airConditioningLabel;
+    private Label airConditioningLabel;
     @FXML
-    public Label balconyLabel;
+    private Label balconyLabel;
     @FXML
-    public Label priceLabel;
+    private Label priceLabel;
     @FXML
     private DatePicker ArrivalDatePicker;
     @FXML
@@ -52,7 +54,10 @@ public class EditOrderController {
     @FXML
     private TextArea notice;
 
-
+    /**
+     * initializes the order data fields
+     * @param id order's ID
+     */
     public void initData(int id) {
         rooms = DataBaseHandler.getInstance().getRooms();
         this.order = DataBaseHandler.getInstance().getOrderById(id);
@@ -83,6 +88,10 @@ public class EditOrderController {
         redraw((int) numberCB.getValue());
     }
 
+    /**
+     * redraws the data on the room when choosing the other room
+     * @param number room number that was chosen
+     */
     private void redraw(int number) {
         for (Room room : rooms)
             if (room.getNumber() == number) {
@@ -96,6 +105,10 @@ public class EditOrderController {
                 order.setRoom(room);
             }
     }
+
+    /**
+     * save changes to order data. if the data is entered incorrectly, an error message is displayed
+     */
     @FXML
     private void save(){
         boolean correctData = false;

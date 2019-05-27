@@ -10,6 +10,9 @@ import sample.models.Order;
 import java.time.Duration;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * controller for the window that displays data about the order made
+ */
 public class ResultOfOrderController {
     private Order order;
     @FXML
@@ -29,6 +32,10 @@ public class ResultOfOrderController {
     @FXML
     private Label eviction;
 
+    /**
+     * initializes the order data fields
+     * @param order - order data about which want to show
+     */
     public void initData(Order order){
         this.order = order;
         number.setText(String.valueOf(order.getRoom().getNumber()));

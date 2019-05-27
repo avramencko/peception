@@ -22,14 +22,23 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+/**
+ * the controller, which is responsible for the window with a list of all orders
+ */
 public class OrdersListController {
     @FXML
-    public GridPane gridPane;
+    private GridPane gridPane;
 
+    /**
+     * when the scene is initialized, all order data is displayed
+     */
     public void initialize() {
         redraw();
     }
 
+    /**
+     * updates the order list
+     */
     private void redraw() {
         gridPane.getChildren().clear();
         ArrayList<Order> orderArrayList = DataBaseHandler.getInstance().getOrdersList();
@@ -68,15 +77,23 @@ public class OrdersListController {
         }
     }
 
+    /**
+     * returns to the main page
+     */
     @FXML
-    public void back() throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("../view/roomsList.fxml"));
-        Main.parentWindow.setTitle("Главная");
-        Main.parentWindow.setScene(new Scene(root));
+    public void back() {
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("../view/roomsList.fxml"));
+            Main.parentWindow.setTitle("Главная");
+            Main.parentWindow.setScene(new Scene(root));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
-    public void showOrder(int id) {
+    private void showOrder(int id) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/editOrder.fxml"));
         Stage stage = new Stage();
         try {
@@ -93,7 +110,7 @@ public class OrdersListController {
         stage.show();
     }
 
-    public void deleteOrder(int id) {
+    private void deleteOrder(int id) {
         AtomicBoolean delete = new AtomicBoolean(false);
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
