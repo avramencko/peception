@@ -21,7 +21,7 @@ public class Employee {
 
     /**
      * constructor with parameters
-     * @param surname constructor with parameters
+     * @param surname employee's surname
      * @param name employee's name
      */
     public Employee(String surname, String name){
