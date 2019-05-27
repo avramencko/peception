@@ -189,7 +189,7 @@ public class RoomDataController {
                 correctData = true;
             }
         }
-        if (correctData) {
+        if (!correctData) {
             Stage window = new Stage();
             window.initModality(Modality.APPLICATION_MODAL);
             VBox layout = new VBox(10);
