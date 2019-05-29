@@ -4,9 +4,13 @@ package sample.models;
  * Guest class with properties <b>id</b>, <b>surname</b>, <b>name</b> and <b>phone</b>
  */
 public class Guest {
+    /**guest's ID*/
     private int id;
+    /**guest's surname*/
     private String surname;
+    /**guest's name*/
     private String name;
+    /**guest's phone*/
     private String phone;
 
     /**
@@ -62,66 +66,34 @@ public class Guest {
         this.phone = phone;
     }
 
-    /**
-     * return the value of the {@link Guest#id} field
-     * @return guest's ID
-     */
     public int getId() {
         return id;
     }
 
-    /**
-     * set the meaning of the {@link Guest#id}
-     * @param id guest's ID
-     */
     public void setId(int id) {
         this.id = id;
     }
 
-    /**
-     * return the value of the {@link Guest#surname} field
-     * @return guest's surname
-     */
     public String getSurname() {
         return surname;
     }
 
-    /**
-     * set the meaning of the {@link Guest#surname}
-     * @param surname guest's surname
-     */
     public void setSurname(String surname) {
         this.surname = surname;
     }
 
-    /**
-     * return the value of the {@link Guest#name} field
-     * @return guest's name
-     */
     public String getName() {
         return name;
     }
 
-    /**
-     * set the meaning of the {@link Guest#name}
-     * @param name guest's name
-     */
     public void setName(String name) {
         this.name = name;
     }
 
-    /**
-     * return the value of the {@link Guest#phone} field
-     * @return guest's phone
-     */
     public String getPhone() {
         return phone;
     }
 
-    /**
-     * set the meaning of the {@link Guest#phone}
-     * @param phone guest's phone
-     */
     public void setPhone(String phone) {
         this.phone = phone;
     }

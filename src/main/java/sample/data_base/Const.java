@@ -1,6 +1,7 @@
 package sample.data_base;
-
-public class Const {
+/**class with constants
+*/
+ public class Const {
     public static final String EMPLOYEES_TABLE = "employees";
     public static final String EMPLOYEES_ID = "employees.id";
     public static final String EMPLOYEES_SURNAME = "employees.surname";

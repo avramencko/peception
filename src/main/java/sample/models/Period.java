@@ -6,7 +6,9 @@ import java.time.LocalDate;
  * Period class with properties <b>date</b> and <b>days</b>. to work with the organization of orders
  */
 public class Period {
+    /**period start date*/
     private LocalDate date;
+     /**number of days*/
     private int days;
 
     /**
@@ -26,34 +28,18 @@ public class Period {
         this.days = days;
     }
 
-    /**
-     * return the value of the {@link Period#date} field
-     * @return period start date
-     */
     public LocalDate getDate() {
         return date;
     }
 
-    /**
-     * set the meaning of the {@link Period#date}
-     * @param date period start date
-     */
     public void setDate(LocalDate date) {
         this.date = date;
     }
 
-    /**
-     * return the value of the {@link Period#days} field
-     * @return number of days
-     */
     public int getDays() {
         return days;
     }
 
-    /**
-     * set the meaning of the {@link Period#days}
-     * @param days number of days
-     */
     public void setDays(int days) {
         this.days = days;
     }

@@ -88,7 +88,7 @@
                </styleClass>
             </VBox>
          </children></Pane>
-      <Pane prefHeight="480.0" prefWidth="660.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Pane prefHeight="480.0" prefWidth="660.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <SplitPane dividerPositions="0.15" orientation="VERTICAL" prefHeight="480.0" prefWidth="660.0">
               <items>

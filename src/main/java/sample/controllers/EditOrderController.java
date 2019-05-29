@@ -1,6 +1,5 @@
 package sample.controllers;
 
-import com.sun.corba.se.spi.orb.ORBData;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;

@@ -2,6 +2,8 @@ package sample.files;
 
 import sample.models.Order;
 
+import java.awt.*;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
@@ -39,7 +41,10 @@ public class Writer {
     /**Сonstructor*/
     public Writer() {}
 
-    /**Set the value of the order property*/
+    /**
+     * Set the value of the order property
+     * @param order order
+     */
     public void setOrder(Order order) {
         this.order = order;
     }
@@ -49,28 +54,36 @@ public class Writer {
      * @param path - path where want to write the file
      * @param filename - file name
      */
-    public void save(String path, String filename){
-        PrintWriter writer = null;
-        try {
-            writer = new PrintWriter(path + "/" + filename + ".html", "UTF-8");
-            String strHtml = HTML + HEAD + BODY + TABLE + CAPTION + "Данные о казазе" +CAPTION_END + TBODY;
-            strHtml+= TR + TD + "Номер комнаты" + TD_END + TD + String.valueOf(order.getRoom().getNumber()) + TD_END + TR_END;
-            strHtml+= TR + TD + "Имя гостя" + TD_END + TD + order.getGuest().getName()+""+order.getGuest().getSurname() + TD_END + TR_END;
-            strHtml+= TR + TD + "Номер телефона" + TD_END + TD + order.getGuest().getPhone() + TD_END + TR_END;
-            strHtml+= TR + TD + "Оформил(а)" + TD_END + TD + order.getEmployee().getName()+ " "+order.getEmployee().getSurname() + TD_END + TR_END;
-            strHtml+= TR + TD + "Дата заезда" + TD_END + TD + order.getArrival().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")) + TD_END + TR_END;
-            strHtml+= TR + TD + "Дата выселения" + TD_END + TD + order.getEviction().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")) + TD_END + TR_END;
-            int days = (int) Duration.between(order.getArrival().atStartOfDay(), order.getEviction().atStartOfDay()).toDays();
-            strHtml+= TR + TD + "Стоимость" + TD_END + TD + String.valueOf(order.getRoom().getPrice()*days) + TD_END + TR_END;
+    public boolean save(String path, String filename){
+        if(path!=null) {
+            File file = new File(path);
+            if (file.exists()) {
 
-            strHtml += TBODY_END + TABLE_END + BODY_END + HTML_END;
-            writer.println(strHtml);
-            writer.close();
-            System.out.println(strHtml);
-        } catch (FileNotFoundException | UnsupportedEncodingException e) {
-            e.printStackTrace();
+
+                PrintWriter writer = null;
+                try {
+                    writer = new PrintWriter(path + "/" + filename + ".html", "UTF-8");
+                    String strHtml = HTML + HEAD + BODY + TABLE + CAPTION + "Данные о казазе" + CAPTION_END + TBODY;
+                    strHtml += TR + TD + "Номер комнаты" + TD_END + TD + String.valueOf(order.getRoom().getNumber()) + TD_END + TR_END;
+                    strHtml += TR + TD + "Имя гостя" + TD_END + TD + order.getGuest().getName() + " " + order.getGuest().getSurname() + TD_END + TR_END;
+                    strHtml += TR + TD + "Номер телефона" + TD_END + TD + order.getGuest().getPhone() + TD_END + TR_END;
+                    strHtml += TR + TD + "Оформил(а)" + TD_END + TD + order.getEmployee().getName() + " " + order.getEmployee().getSurname() + TD_END + TR_END;
+                    strHtml += TR + TD + "Дата заезда" + TD_END + TD + order.getArrival().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")) + TD_END + TR_END;
+                    strHtml += TR + TD + "Дата выселения" + TD_END + TD + order.getEviction().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")) + TD_END + TR_END;
+                    int days = (int) Duration.between(order.getArrival().atStartOfDay(), order.getEviction().atStartOfDay()).toDays();
+                    strHtml += TR + TD + "Стоимость" + TD_END + TD + String.valueOf(order.getRoom().getPrice() * days) + TD_END + TR_END;
+
+                    strHtml += TBODY_END + TABLE_END + BODY_END + HTML_END;
+                    writer.println(strHtml);
+                    writer.close();
+                    System.out.println(strHtml);
+                    return true;
+                } catch (FileNotFoundException | UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+            }
         }
-
+        return false;
     }
 
 }

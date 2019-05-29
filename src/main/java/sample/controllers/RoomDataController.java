@@ -175,7 +175,8 @@ public class RoomDataController {
         boolean correctData = false;
         if (ArrivalDatePicker.getValue() != null && EvictionDatePicker.getValue() != null) {
             Guest guest = new Guest(guestSurname.getText(), guestName.getText(), guestPhone.getText());
-            Order order = new Order.Builder(ArrivalDatePicker.getValue(), EvictionDatePicker.getValue()).withRoom(room).withGuest(guest).withEmployee(User.getInstance()).withNotice(notice.getText()).build();
+            Order order = new Order.Builder(ArrivalDatePicker.getValue(), EvictionDatePicker.getValue()).setRoom(room)
+                    .setGuest(guest).setEmployee(User.getInstance()).setNotice(notice.getText()).build();
 //                (room, guest, User.getInstance(), ArrivalDatePicker.getValue(), EvictionDatePicker.getValue(),notice.getText());
             int id = DataBaseHandler.getInstance().saveOrder(order);
             if (id > 0) {

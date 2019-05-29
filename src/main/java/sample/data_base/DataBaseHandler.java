@@ -194,13 +194,13 @@ public class DataBaseHandler extends Configs {
             ResultSet resultSet = statement.executeQuery();
             ArrayList<Order> orders = new ArrayList<>();
             while(resultSet.next()) {
-                Room room = new Room.Builder().withId(resultSet.getInt(4)).withNumber(resultSet.getInt(5))
-                        .withNumberBeds(resultSet.getInt(6)).withTv(resultSet.getInt(7)).withFridge(resultSet.getInt(8))
-                        .withAirConditioning(resultSet.getInt(9)).withBalcony(resultSet.getInt(10))
-                        .withPrice(resultSet.getInt(11)).build();
+                Room room = new Room.Builder().setId(resultSet.getInt(4)).setNumber(resultSet.getInt(5))
+                        .setNumberBeds(resultSet.getInt(6)).setTv(resultSet.getInt(7)).setFridge(resultSet.getInt(8))
+                        .setAirConditioning(resultSet.getInt(9)).setBalcony(resultSet.getInt(10))
+                        .setPrice(resultSet.getInt(11)).build();
                 LocalDate arrival = (resultSet.getDate(2)!=null)?(resultSet.getDate(2).toLocalDate()):(null);
                 LocalDate eviction = (resultSet.getDate(3)!=null)?(resultSet.getDate(3).toLocalDate()):(null);
-                Order order = new Order.Builder(arrival,eviction).withId(resultSet.getInt(1)).withRoom(room).build();
+                Order order = new Order.Builder(arrival,eviction).setId(resultSet.getInt(1)).setRoom(room).build();
 //                        new Order(resultSet.getInt(1), room, new Guest(), new Employee(), arrival, eviction);
                 orders.add(order);
             }
@@ -221,10 +221,10 @@ public class DataBaseHandler extends Configs {
             ResultSet resultSet = statement.executeQuery();
             ArrayList<Room> rooms = new ArrayList<>();
             while(resultSet.next()) {
-                Room room = new Room.Builder().withId(resultSet.getInt(1)).withNumber(resultSet.getInt(2))
-                        .withNumberBeds(resultSet.getInt(3)).withTv(resultSet.getInt(4)).withFridge(resultSet.getInt(5))
-                        .withAirConditioning(resultSet.getInt(6)).withBalcony(resultSet.getInt(7))
-                        .withPrice(resultSet.getInt(8)).build();
+                Room room = new Room.Builder().setId(resultSet.getInt(1)).setNumber(resultSet.getInt(2))
+                        .setNumberBeds(resultSet.getInt(3)).setTv(resultSet.getInt(4)).setFridge(resultSet.getInt(5))
+                        .setAirConditioning(resultSet.getInt(6)).setBalcony(resultSet.getInt(7))
+                        .setPrice(resultSet.getInt(8)).build();
                 rooms.add(room);
             }
             return rooms;
@@ -283,12 +283,13 @@ public class DataBaseHandler extends Configs {
                     " LEFT JOIN "+Const.GUESTS_TABLE+" on "+Const.ORDERS_ID_GUEST+" = "+Const.GUESTS_ID);
             ArrayList<Order> orders = new ArrayList<>();
             while(resultSet.next()) {
-                Room room = new Room.Builder().withNumber(resultSet.getInt(1)).build();
+                Room room = new Room.Builder().setNumber(resultSet.getInt(1)).build();
                 Guest guest = new Guest(resultSet.getString(3),resultSet.getString(2));
                 Employee employee = new Employee(resultSet.getString(7),resultSet.getString(8));
                 LocalDate arrival = (resultSet.getDate(4)!=null)?(resultSet.getDate(4).toLocalDate()):(null);
                 LocalDate eviction = (resultSet.getDate(5)!=null)?(resultSet.getDate(5).toLocalDate()):(null);
-                Order order = new Order.Builder(arrival,eviction).withId(resultSet.getInt(9)).withRoom(room).withGuest(guest).withEmployee(employee).withNotice(resultSet.getString(6)).build();
+                Order order = new Order.Builder(arrival,eviction).setId(resultSet.getInt(9)).setRoom(room).setGuest(guest)
+                        .setEmployee(employee).setNotice(resultSet.getString(6)).build();
 //                        (resultSet.getInt(9), room, guest, employee, arrival, eviction,resultSet.getString(6));
                 orders.add(order);
             }
@@ -330,22 +331,22 @@ public class DataBaseHandler extends Configs {
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
             if(resultSet.next()) {
-                Room room = new Room.Builder().withNumber(resultSet.getInt(1)).withNumberBeds(resultSet.getInt(2))
-                        .withTv(resultSet.getInt(3)).withFridge(resultSet.getInt(4))
-                        .withAirConditioning(resultSet.getInt(5)).withBalcony(resultSet.getInt(6))
-                        .withPrice(resultSet.getInt(7)).build();
+                Room room = new Room.Builder().setNumber(resultSet.getInt(1)).setNumberBeds(resultSet.getInt(2))
+                        .setTv(resultSet.getInt(3)).setFridge(resultSet.getInt(4))
+                        .setAirConditioning(resultSet.getInt(5)).setBalcony(resultSet.getInt(6))
+                        .setPrice(resultSet.getInt(7)).build();
                 Guest guest = new Guest(resultSet.getInt(8),resultSet.getString(10),resultSet.getString(9),resultSet.getString(11));
                 Employee employee = new Employee(resultSet.getString(16),resultSet.getString(17));
                 LocalDate arrival = (resultSet.getDate(12)!=null)?(resultSet.getDate(12).toLocalDate()):(null);
                 LocalDate eviction = (resultSet.getDate(13)!=null)?(resultSet.getDate(13).toLocalDate()):(null);
-                return new Order.Builder(arrival,eviction).withId(resultSet.getInt(15)).withRoom(room).withGuest(guest).withEmployee(employee).withNotice(resultSet.getString(14)).build();
+                return new Order.Builder(arrival,eviction).setId(resultSet.getInt(15)).setRoom(room).setGuest(guest)
+                        .setEmployee(employee).setNotice(resultSet.getString(14)).build();
 //                        (resultSet.getInt(15), room, guest, employee, arrival, eviction,resultSet.getString(14));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
-        //TODO return order&??
     }
 
     /**
